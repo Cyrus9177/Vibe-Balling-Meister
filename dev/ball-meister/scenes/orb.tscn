@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://q41ygbxki14i"]
+
+[ext_resource type="Texture2D" uid="uid://3kujyn82q5ch" path="res://assets/Orb.png" id="1_ktqa0"]
+[ext_resource type="Script" uid="uid://cm5ft8kq6djgu" path="res://scripts/orb.gd" id="1_ubfm6"]
+
+[node name="Orb" type="Node2D" unique_id=1853628695]
+script = ExtResource("1_ubfm6")
+
+[node name="Orb" type="Sprite2D" parent="." unique_id=321380040]
+texture = ExtResource("1_ktqa0")

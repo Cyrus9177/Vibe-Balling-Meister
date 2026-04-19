@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ducjhfye2yiww"]
+
+[ext_resource type="Script" uid="uid://8xm1c3skkkps" path="res://scripts/player.gd" id="1_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://cg8vnp5w2if73" path="res://assets/Body.png" id="2_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://dd1vda00t2cke" path="res://assets/Hand.png" id="3_fjrip"]
+[ext_resource type="Texture2D" uid="uid://bdur0yulafx3p" path="res://assets/HandedOrb.png" id="4_smehm"]
+[ext_resource type="Texture2D" uid="uid://cboe1ns60gu3b" path="res://assets/NextOrbColor.png" id="5_ur7pv"]
+
+[node name="Player" type="Node2D" unique_id=1178468840]
+script = ExtResource("1_qlg0r")
+
+[node name="Body" type="Sprite2D" parent="." unique_id=1716746720]
+rotation = -1.5707964
+texture = ExtResource("2_tuyoq")
+
+[node name="Hand" type="Sprite2D" parent="Body" unique_id=698895586]
+position = Vector2(0, 36)
+texture = ExtResource("3_fjrip")
+
+[node name="HandedOrb" type="Sprite2D" parent="Body" unique_id=273266974]
+position = Vector2(0, 46)
+texture = ExtResource("4_smehm")
+
+[node name="NextOrbColor" type="Sprite2D" parent="Body" unique_id=619888396]
+texture = ExtResource("5_ur7pv")
