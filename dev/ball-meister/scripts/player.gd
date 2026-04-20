@@ -26,9 +26,10 @@ func _input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.is_released():
 				var next_orb: Orb = ORB.instantiate()
+				var mouse_world: Vector2 = get_global_mouse_position()
 				orb_pool.append(next_orb)
 				next_orb_color.modulate = orb_pool.back().color
-				fire_orb(event.global_position, orb_pool.pop_front())
+				fire_orb(mouse_world, orb_pool.pop_front())
 				handed_orb.modulate = orb_pool.front().color
 		
 		# Switch Color
@@ -40,6 +41,11 @@ func _input(event: InputEvent) -> void:
 					
 					handed_orb.modulate = orb_pool.front().color
 					next_orb_color.modulate = orb_pool.back().color
+
+
+func _process(delta: float) -> void:
+	look_at(get_global_mouse_position())
+
 
 func get_orb_spawn_point() -> Vector2:
 	return orb_spawn_point.global_position
