@@ -209,6 +209,9 @@ func continue_chain(orb: Orb) -> void:
 					var new_progress = orb_pool.get(i - 1).progress - 70
 					o.progress = new_progress
 		
+		# Properly collapse the chain before checking for combos
+		_collapse_chain()
+		
 		# Check for chain reactions (combos) after collapse
 		_check_combo_matches()
 		
