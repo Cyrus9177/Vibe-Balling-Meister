@@ -3,6 +3,7 @@ class_name Orb
 
 @export var chain_speed: float = 100.0
 @export var velocity_speed: float = 500.0
+@export var projectile_lifetime: float = 3.0
 
 var FSM: OrbFSM
 

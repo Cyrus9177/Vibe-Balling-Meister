@@ -19,6 +19,9 @@ func _ready() -> void:
 	handed_orb.modulate = orb_pool.front().color
 
 func _input(event: InputEvent) -> void:
+	if orb_manager != null and not orb_manager.is_game_active():
+		return
+	
 	if event is InputEventMouseMotion:
 		self.look_at(event.global_position)
 	
@@ -44,6 +47,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	if orb_manager != null and not orb_manager.is_game_active():
+		return
 	look_at(get_global_mouse_position())
 
 
