@@ -208,11 +208,44 @@ func continue_chain(orb: Orb) -> void:
 					var o: Orb = orb_pool.get(i)
 					var new_progress = orb_pool.get(i - 1).progress - 70
 					o.progress = new_progress
+		
+		# Check for chain reactions (combos) after collapse
+		_check_combo_matches()
+		
 		for o in orb_pool:
 			o.FSM.change_state("in_chain")
 	else:
 		for o in orb_pool:
 			o.FSM.change_state("in_chain")
+
+
+func _check_combo_matches() -> void:
+	# Keep checking for and clearing matches until none remain (combo chain)
+	sort_orb_pool()
+	var found_match: bool = false
+	
+	for i in range(orb_pool.size()):
+		var orb: Orb = orb_pool[i]
+		var bounds: Vector2i = _get_match_bounds(i)
+		var match_size: int = bounds.y - bounds.x + 1
+		
+		if match_size >= 3:
+			# Clear the matched orbs
+			for j in range(bounds.y, bounds.x - 1, -1):
+				var matched: Orb = orb_pool[j]
+				orb_pool.remove_at(j)
+				matched.disintegrate()
+			
+			score += match_size * points_per_orb
+			score_changed.emit(score)
+			found_match = true
+			break
+	
+	if found_match and orb_pool.size() > 0:
+		# Collapse remaining orbs
+		_collapse_chain()
+		# Recursively check for more matches (combo!)
+		_check_combo_matches()
 
 
 func get_all_gaps(step: float = 70.0, tolerance: float = 1.0) -> Array:
