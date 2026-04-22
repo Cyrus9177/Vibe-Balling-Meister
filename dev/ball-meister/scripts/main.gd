@@ -11,6 +11,7 @@ const ORB = preload("uid://q41ygbxki14i")
 
 var _score_label: Label
 var _status_label: Label
+var _game_ended: bool = false
 
 func _ready() -> void:
 	var curve = orb_path.curve
@@ -24,6 +25,13 @@ func _ready() -> void:
 		orb_manager.game_won.connect(_on_game_won)
 		_on_score_changed(0)
 		orb_manager.initialize_orbs(orb_count)
+
+
+func _input(event: InputEvent) -> void:
+	if _game_ended and event is InputEventKey and event.pressed:
+		if event.keycode == KEY_SPACE or event.keycode == KEY_R:
+			_retry_game()
+			get_tree().root.set_input_as_handled()
 
 
 func _setup_ui() -> void:
@@ -60,13 +68,15 @@ func _on_score_changed(new_score: int) -> void:
 
 
 func _on_game_over() -> void:
-	_show_status("GAME OVER")
+	_game_ended = true
+	_show_status("GAME OVER\n(Press SPACE or R to retry)")
 	if player:
 		player.set_process_input(false)
 
 
 func _on_game_won() -> void:
-	_show_status("YOU WIN!")
+	_game_ended = true
+	_show_status("YOU WIN!\n(Press SPACE or R to retry)")
 	if player:
 		player.set_process_input(false)
 
@@ -75,3 +85,12 @@ func _show_status(text: String) -> void:
 	if _status_label:
 		_status_label.text = text
 		_status_label.visible = true
+
+
+func _retry_game() -> void:
+	_game_ended = false
+	_status_label.visible = false
+	if orb_manager:
+		orb_manager.initialize_orbs(orb_count)
+	if player:
+		player.set_process_input(true)
