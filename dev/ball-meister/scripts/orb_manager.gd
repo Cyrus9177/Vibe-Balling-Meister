@@ -26,6 +26,16 @@ func _process(_delta: float) -> void:
 	if orb_pool.is_empty():
 		_end_game(true)
 		return
+	
+	# Auto-clear the last remaining orb to win
+	if orb_pool.size() == 1:
+		var last_orb = orb_pool[0]
+		orb_pool.clear()
+		last_orb.disintegrate()
+		score += points_per_orb
+		score_changed.emit(score)
+		_end_game(true)
+		return
 
 	sort_orb_pool()
 	var front_orb: Orb = orb_pool[0]
@@ -97,6 +107,10 @@ func hit_from_back(hit_orb: Orb, projectile: Orb) -> void:
 		o.FSM.change_state("idle")
 	projectile.FSM.change_state("idle")
 	
+	if orb_pool.size() < 2:
+		continue_chain(projectile)
+		return
+	
 	var orb_next: Orb = orb_pool.get(orb_pool.size() - 2)
 	
 	var projectile_pos: Vector2 = projectile.global_position
@@ -123,6 +137,10 @@ func hit_from_front(hit_orb: Orb, projectile: Orb) -> void:
 	for o in orb_pool:
 		o.FSM.change_state("idle")
 	projectile.FSM.change_state("idle")
+	
+	if orb_pool.size() < 2:
+		continue_chain(projectile)
+		return
 	
 	var orb_next: Orb = orb_pool.get(1)
 	
@@ -185,10 +203,11 @@ func continue_chain(orb: Orb) -> void:
 		for g in gaps:
 			var head_idx: int = orb_pool.find(g[0])
 			
-			for i in range(head_idx, -1, -1):
-				var o: Orb = orb_pool.get(i)
-				var new_progress = orb_pool.get(i+1).progress + 70
-				o.progress = new_progress
+			if head_idx != -1 and head_idx + 1 < orb_pool.size():
+				for i in range(head_idx + 1, orb_pool.size()):
+					var o: Orb = orb_pool.get(i)
+					var new_progress = orb_pool.get(i - 1).progress - 70
+					o.progress = new_progress
 		for o in orb_pool:
 			o.FSM.change_state("in_chain")
 	else:
