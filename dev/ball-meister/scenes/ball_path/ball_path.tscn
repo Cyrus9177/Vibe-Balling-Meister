@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cn833r3xnkorr"]
+
+[ext_resource type="Script" uid="uid://dogtp2wp2hklv" path="res://scripts/ball_paths.gd" id="1_x8yje"]
+[ext_resource type="Texture2D" uid="uid://b303bk372uwta" path="res://assets/Path.png" id="2_8kjd4"]
+
+[sub_resource type="Curve2D" id="Curve2D_x8yje"]
+bake_interval = 0.01
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 69, 112, 0, 0, 0, 0, 388, 86, 0, 0, 0, 0, 761, 82, 0, 0, 0, 0, 986, 140, 0, 0, 0, 0, 1121, 257, 0, 0, 0, 0, 1046, 502, 0, 0, 0, 0, 944, 611, 0, 0, 0, 0, 609, 609, 0, 0, 0, 0, 382, 588, 0, 0, 0, 0, 176, 543, 0, 0, 0, 0, 108, 459, 0, 0, 0, 0, 144, 335, 0, 0, 0, 0, 219, 266, 0, 0, 0, 0, 320, 217, 0, 0, 0, 0, 461, 189, 0, 0, 0, 0, 607, 176, 0, 0, 0, 0, 727, 208, 0, 0, 0, 0, 939, 253, 0, 0, 0, 0, 965, 311, 0, 0, 0, 0, 946, 403, 0, 0, 0, 0, 828, 515, 0, 0, 0, 0, 620, 504, 0, 0, 0, 0, 461, 472, 0, 0, 0, 0, 371, 457, 0, 0, 0, 0, 307, 405, 0, 0, 0, 0, 315, 350)
+}
+point_count = 26
+
+[node name="BallPath" type="Path2D" unique_id=1482659242]
+curve = SubResource("Curve2D_x8yje")
+script = ExtResource("1_x8yje")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1947991778]
+width = 53.955
+texture = ExtResource("2_8kjd4")
+texture_mode = 1
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+metadata/_edit_lock_ = true

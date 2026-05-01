@@ -1,0 +1,139 @@
+[gd_scene format=3 uid="uid://wbh1vb1pa270"]
+
+[ext_resource type="FontFile" uid="uid://bujjt8fpsqsc8" path="res://assets/fonts/Augusta.ttf" id="1_h60cy"]
+[ext_resource type="Script" uid="uid://bgt04b4phe4q8" path="res://scripts/Menu/game_hud.gd" id="1_mqauh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h60cy"]
+content_margin_left = 12.0
+bg_color = Color(0, 0, 0, 0.5411765)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_mqauh"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_h60cy")
+
+[sub_resource type="FontVariation" id="FontVariation_mqauh"]
+base_font = ExtResource("1_h60cy")
+
+[sub_resource type="LabelSettings" id="LabelSettings_05jfg"]
+font = SubResource("FontVariation_mqauh")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_h60cy"]
+font = SubResource("FontVariation_mqauh")
+font_size = 64
+
+[sub_resource type="FontVariation" id="FontVariation_03hsn"]
+base_font = ExtResource("1_h60cy")
+variation_embolden = 0.4
+variation_transform = Transform2D(1.04, 0, 0, 1, 0.09, 0.24)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_abu24"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.48235294)
+border_width_left = 50
+border_width_top = 32
+border_width_right = 49
+border_width_bottom = 32
+border_color = Color(0.8, 0.8, 0.8, 0)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_03hsn"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.48235294)
+border_width_left = 50
+border_width_top = 32
+border_width_right = 49
+border_width_bottom = 32
+border_color = Color(0.8, 0.8, 0.8, 0)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oojwm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6eql"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.48235294)
+border_width_left = 50
+border_width_top = 32
+border_width_right = 49
+border_width_bottom = 32
+border_color = Color(0.8, 0.8, 0.8, 0)
+border_blend = true
+
+[sub_resource type="Theme" id="Theme_h60cy"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 48
+Button/fonts/font = SubResource("FontVariation_03hsn")
+Button/styles/focus = SubResource("StyleBoxFlat_abu24")
+Button/styles/hover = SubResource("StyleBoxFlat_03hsn")
+Button/styles/normal = SubResource("StyleBoxFlat_oojwm")
+Button/styles/pressed = SubResource("StyleBoxFlat_p6eql")
+
+[node name="GameHUD" type="CanvasLayer" unique_id=1545343968]
+script = ExtResource("1_mqauh")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1828724321]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=1431140212]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme = SubResource("Theme_mqauh")
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/PanelContainer" unique_id=266973855]
+layout_mode = 2
+text = "SCORE: 0"
+label_settings = SubResource("LabelSettings_05jfg")
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=387421864]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+
+[node name="StatusLabel" type="Label" parent="MarginContainer2" unique_id=106986604]
+layout_mode = 2
+text = "STATUS"
+label_settings = SubResource("LabelSettings_h60cy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="." unique_id=932974102]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_bottom = 55.0
+grow_horizontal = 0
+
+[node name="MainMenu" type="Button" parent="MarginContainer3" unique_id=21793560]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = SubResource("Theme_h60cy")
+text = "Main Menu"
+
+[connection signal="pressed" from="MarginContainer3/MainMenu" to="." method="_on_play_button_pressed"]

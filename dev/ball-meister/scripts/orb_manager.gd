@@ -11,14 +11,16 @@ var orb_pool: Array[Orb] = []
 var score: int = 0
 var _game_active: bool = true
 
-@export var orb_path: Path2D
+@export var orb_path: BallPath
 @export var points_per_orb: int = 10
 @export var end_progress_margin: float = 50.0
+@export var ball_size: float = 20
 
 func _ready() -> void:
 	score_changed.emit(score)
 
 func _process(_delta: float) -> void:
+	orb_path._generate_paths()
 	if not _game_active or orb_path == null or orb_path.curve == null:
 		return
 	
@@ -43,12 +45,13 @@ func _process(_delta: float) -> void:
 	if front_orb.progress >= (curve_len - end_progress_margin):
 		_end_game(false)
 
+
 func is_game_active() -> bool:
 	return _game_active
 
 
 func initialize_orbs(orb_count: int = 0) -> void:
-	_game_active = true
+	_game_active = false
 	score = 0
 	score_changed.emit(score)
 	
@@ -58,18 +61,34 @@ func initialize_orbs(orb_count: int = 0) -> void:
 	orb_pool.clear()
 	
 	var interval: float = 0.0
-	
+	var progress_arr: Array
 	for i in range(orb_count):
 		var orb: Orb = ORB.instantiate()
 		orb.path = orb_path
-		orb.progress = interval
+		#orb.progress = interval
 		get_tree().current_scene.add_child(orb)
-		orb_pool.append(orb)
 		
-		interval += 70.0
-		orb.FSM.change_state("in_chain")
+		progress_arr.append(interval)
+		
+		orb_pool.append(orb)
+		interval += ball_size
+		orb.FSM.set_initial_state("setup")
+		orb.hide()
 	
 	sort_orb_pool()
+	
+	for i in range(orb_pool.size() - 1, -1 , -1):
+		var orb = orb_pool[i]
+		orb.show()
+		var tween = create_tween()
+
+		# delay based on position in the chain
+		#tween.tween_interval(i * 0.1)
+
+		tween.tween_property(orb, "progress", progress_arr[i], 0.5)#var orb: Orb = orb_pool[0]
+		await get_tree().create_timer(.1).timeout
+	
+	_game_active = true
 
 
 func sort_orb_pool() -> void:
@@ -121,11 +140,11 @@ func hit_from_back(hit_orb: Orb, projectile: Orb) -> void:
 		projectile.path = orb_path
 		orb_pool.append(projectile)
 		projectile.progress = hit_orb.progress
-		hit_orb.progress -= 70
+		hit_orb.progress -= ball_size
 	else:
 		projectile.path = orb_path
 		orb_pool.append(projectile)
-		projectile.progress += hit_orb.progress - 70
+		projectile.progress += hit_orb.progress - ball_size
 	
 	continue_chain(projectile)
 
@@ -152,11 +171,11 @@ func hit_from_front(hit_orb: Orb, projectile: Orb) -> void:
 		projectile.path = orb_path
 		orb_pool.append(projectile)
 		projectile.progress = hit_orb.progress
-		hit_orb.progress += 70
+		hit_orb.progress += ball_size
 	else:
 		projectile.path = orb_path
 		orb_pool.append(projectile)
-		projectile.progress += hit_orb.progress + 70
+		projectile.progress += hit_orb.progress + ball_size
 	
 	continue_chain(projectile)
 	
@@ -182,13 +201,13 @@ func hit_from_middle(hit_orb: Orb, projectile: Orb) -> void:
 		orb_pool.append(projectile)
 		projectile.progress = hit_orb.progress
 		for i in range(hit_idx, -1, -1):
-			orb_pool.get(i).progress += 70
+			orb_pool.get(i).progress += ball_size
 	else:
 		projectile.path = orb_path
 		orb_pool.append(projectile)
-		projectile.progress = hit_orb.progress +70
+		projectile.progress = hit_orb.progress + ball_size
 		for i in range(hit_idx, orb_pool.size()):
-			orb_pool.get(i).progress -= 70
+			orb_pool.get(i).progress -= ball_size
 	
 	continue_chain(projectile)
 
@@ -206,7 +225,7 @@ func continue_chain(orb: Orb) -> void:
 			if head_idx != -1 and head_idx + 1 < orb_pool.size():
 				for i in range(head_idx + 1, orb_pool.size()):
 					var o: Orb = orb_pool.get(i)
-					var new_progress = orb_pool.get(i - 1).progress - 70
+					var new_progress = orb_pool.get(i - 1).progress - ball_size
 					o.progress = new_progress
 		
 		# Properly collapse the chain before checking for combos
@@ -251,13 +270,13 @@ func _check_combo_matches() -> void:
 		_check_combo_matches()
 
 
-func get_all_gaps(step: float = 70.0, tolerance: float = 1.0) -> Array:
+func get_all_gaps(tolerance: float = 1.0) -> Array:
 	var gaps: Array = []
 	
 	for i in range(orb_pool.size() - 1):
 		var a = orb_pool[i]
 		var b = orb_pool[i + 1]
-		if abs((a.progress - b.progress) - step) > tolerance:
+		if abs((a.progress - b.progress) - ball_size) > tolerance:
 			gaps.append([a, b])
 	
 	return gaps
@@ -301,7 +320,7 @@ func _collapse_chain() -> void:
 		return
 	for i in range(orb_pool.size() - 2, -1, -1):
 		var behind: Orb = orb_pool[i + 1]
-		orb_pool[i].progress = behind.progress + 70.0
+		orb_pool[i].progress = behind.progress + ball_size
 
 func _freeze_chain() -> void:
 	for o in orb_pool:

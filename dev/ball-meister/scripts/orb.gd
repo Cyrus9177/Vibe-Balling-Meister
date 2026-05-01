@@ -35,15 +35,14 @@ func _ready() -> void:
 	var idle_state: OrbIdleState = OrbIdleState.new()
 	var in_chain_state: OrbInChainState = OrbInChainState.new()
 	var projectile_state: OrbProjectileState = OrbProjectileState.new()
+	var setup_state: OrbSetupState = OrbSetupState.new()
 	
 	FSM.add_state("idle", idle_state)
 	FSM.add_state("in_chain", in_chain_state)
 	FSM.add_state("projectile", projectile_state)
+	FSM.add_state("setup", setup_state)
 	
 	FSM.set_initial_state("idle")
-	
-	#if path != null and not has_velocity:
-		#global_position = path.curve.sample_baked(0.0)
 
 
 func _process(delta: float) -> void:
@@ -54,29 +53,6 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if FSM:
 		FSM.physics_update(delta)
-
-
-#func _process(delta: float) -> void:
-	#if not is_active:
-		#return
-	#
-	## 🔹 If fired (projectile behavior)
-	#if has_velocity:
-		#global_position += velocity_dir * velocity_speed * delta
-		#return
-	#
-	## 🔹 Otherwise follow path (chain behavior)
-	#if path == null:
-		#return
-	#
-	#var curve = path.curve
-	#
-	#progress += speed * delta
-	#if progress >= curve.get_baked_length():
-		#queue_free() # or deactivate if pooling
-		#return
-	#
-	#global_position = curve.sample_baked(progress)
 
 
 func fire(direction: Vector2, from: Vector2) -> void:

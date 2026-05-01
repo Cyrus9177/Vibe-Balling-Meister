@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Ball Meister"
-run/main_scene="uid://b5rxi7gunv6aq"
+run/main_scene="uid://ctxujx3u71fbr"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 

@@ -70,23 +70,11 @@ theme = SubResource("Theme_247la")
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuButtons/PanelContainer" unique_id=359087935]
 layout_mode = 2
 
-[node name="ContinueButton" type="Button" parent="MenuButtons/PanelContainer/VBoxContainer" unique_id=858169182]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme = ExtResource("2_247la")
-text = "Continue"
-
 [node name="PlayButton" type="Button" parent="MenuButtons/PanelContainer/VBoxContainer" unique_id=1292053131]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = ExtResource("2_247la")
 text = "Play"
-
-[node name="LevelSelectionButton" type="Button" parent="MenuButtons/PanelContainer/VBoxContainer" unique_id=1769816103]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme = ExtResource("2_247la")
-text = "Levels"
 
 [node name="QuitButton" type="Button" parent="MenuButtons/PanelContainer/VBoxContainer" unique_id=199821571]
 custom_minimum_size = Vector2(300, 0)
@@ -108,7 +96,5 @@ label_settings = SubResource("LabelSettings_xn6kt")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="MenuButtons/PanelContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="MenuButtons/PanelContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="MenuButtons/PanelContainer/VBoxContainer/LevelSelectionButton" to="." method="_on_level_selection_button_pressed"]
 [connection signal="pressed" from="MenuButtons/PanelContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
