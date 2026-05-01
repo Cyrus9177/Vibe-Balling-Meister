@@ -10,10 +10,16 @@
 </head>
 <body>
     <div class="stone-background"></div>
+    <div class="cinematic-haze"></div>
     
     <div class="main-container">
         <!-- Content Panel -->
         <div class="content-panel">
+            <div class="portal-intro">
+                <span class="portal-badge">Wizard's Realm</span>
+                <p class="portal-ribbon">Web build · Source project · Team credits</p>
+            </div>
+
             <!-- Main Title -->
             <div class="title-container">
                 <h1 class="game-title">VIBE-BALLING</h1>
@@ -23,10 +29,34 @@
 
             <!-- Quick Play Section -->
             <div class="quick-play">
-                <button class="play-button" onclick="window.location.href='https://cyrus9177.github.io/Vibe-Balling-Meister/build/ball-meister.html'">
-                    ▶ PLAY NOW
-                </button>
-                <a class="portal-home-link" href="../../index.html">← BACK TO HOMEPAGE</a>
+                <div class="quick-play-copy">
+                    <span class="quick-play-label">Primary Action</span>
+                    <p>Enter the playable build or return to the repository landing page.</p>
+                </div>
+                <div class="quick-play-actions">
+                    <button class="play-button" onclick="window.location.href='https://cyrus9177.github.io/Vibe-Balling-Meister/build/ball-meister.html'">
+                        ▶ PLAY NOW
+                    </button>
+                    <a class="portal-home-link" href="../../index.html">← BACK TO HOMEPAGE</a>
+                </div>
+            </div>
+
+            <div class="portal-stats">
+                <div class="stat-card">
+                    <span class="stat-label">Launch</span>
+                    <strong>Web Build</strong>
+                    <p>Open the exported browser version.</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Explore</span>
+                    <strong>Source Project</strong>
+                    <p>Inspect the editable Godot workspace.</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Team</span>
+                    <strong>About</strong>
+                    <p>See the project credits and contributors.</p>
+                </div>
             </div>
 
             <!-- Content Tabs -->
