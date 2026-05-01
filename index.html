@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Vibe-Balling-Meister is a GitHub Pages homepage for the Ball Meister web build and Godot source project.">
+  <title>Vibe-Balling-Meister | GitHub Pages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #08101b;
+      --bg-2: #0d1726;
+      --panel: rgba(13, 23, 38, 0.72);
+      --panel-strong: rgba(17, 29, 49, 0.9);
+      --border: rgba(167, 199, 255, 0.16);
+      --border-strong: rgba(167, 199, 255, 0.28);
+      --text: #e8eef9;
+      --muted: #a8b5c9;
+      --accent: #7ee0c4;
+      --accent-2: #ffb86b;
+      --accent-3: #8aa7ff;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(126, 224, 196, 0.18), transparent 28%),
+        radial-gradient(circle at 85% 10%, rgba(138, 167, 255, 0.18), transparent 28%),
+        radial-gradient(circle at 72% 82%, rgba(255, 184, 107, 0.14), transparent 26%),
+        linear-gradient(145deg, #050a12 0%, var(--bg) 45%, var(--bg-2) 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.32;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      position: relative;
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 28px 20px 52px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #09111d;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      box-shadow: 0 10px 30px rgba(126, 224, 196, 0.25);
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-copy span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-top: 2px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a,
+    .nav span {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.03);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .nav a:hover {
+      transform: translateY(-1px);
+      color: var(--text);
+      border-color: var(--border);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.9fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-card,
+    .side-card,
+    .section-card,
+    .mini-card {
+      position: relative;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 36px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -12% -40% auto;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(126, 224, 196, 0.22), transparent 68%);
+      filter: blur(10px);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(126, 224, 196, 0.24);
+      color: #c8f5ea;
+      background: rgba(126, 224, 196, 0.08);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.73rem;
+      font-weight: 700;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.04em;
+    }
+
+    h1 {
+      margin-top: 18px;
+      font-size: clamp(3rem, 7vw, 5.9rem);
+      line-height: 0.95;
+      max-width: 10ch;
+    }
+
+    .hero p {
+      margin: 18px 0 0;
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.03rem;
+      line-height: 1.7;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button.primary {
+      color: #08101b;
+      background: linear-gradient(135deg, var(--accent) 0%, #c4f6c0 100%);
+      box-shadow: 0 16px 36px rgba(126, 224, 196, 0.18);
+    }
+
+    .button.secondary {
+      color: var(--text);
+      border-color: var(--border-strong);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .meta {
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: rgba(6, 12, 20, 0.28);
+    }
+
+    .meta strong {
+      display: block;
+      font-size: 0.94rem;
+      margin-bottom: 5px;
+    }
+
+    .meta span {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+
+    .side-card {
+      border-radius: var(--radius-xl);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .panel-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #d9e4f7;
+    }
+
+    .repo-map {
+      display: grid;
+      gap: 12px;
+    }
+
+    .map-item {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .map-item a,
+    .map-item strong {
+      display: block;
+    }
+
+    .map-item a {
+      margin-top: 8px;
+      color: var(--accent);
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .map-item p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .section {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .section-card {
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .section-card h2 {
+      font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+      margin-bottom: 12px;
+    }
+
+    .section-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .span-7 {
+      grid-column: span 7;
+    }
+
+    .span-5 {
+      grid-column: span 5;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .mini-card {
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .mini-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.95rem;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .step-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      font-weight: 800;
+      color: #08101b;
+      background: linear-gradient(135deg, var(--accent-2), #ffdca8);
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 24px;
+      padding: 22px 4px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+    }
+
+    .footer a {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        grid-template-columns: 1fr;
+      }
+
+      .span-7,
+      .span-5 {
+        grid-column: auto;
+      }
+
+      .cards,
+      .meta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .wrap {
+        padding-inline: 16px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero-card,
+      .side-card,
+      .section-card {
+        padding: 22px;
+      }
+
+      .cta-row {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Vibe-Balling-Meister home">
+        <span class="brand-mark">VB</span>
+        <span class="brand-copy">
+          <strong>Vibe-Balling-Meister</strong>
+          <span>GitHub Pages documentation and launchpad</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#play">Play</a>
+        <a href="#structure">Structure</a>
+        <a href="#source">Source</a>
+        <a href="#notes">Notes</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="top">
+      <article class="hero-card">
+        <span class="eyebrow">Ball Meister web portal</span>
+        <h1>Play the game, inspect the source, and understand the repo.</h1>
+        <p>
+          This homepage is the documentation front door for the repository. It points visitors to the exported web build,
+          the Godot source project, and the legacy portal assets that shape the current presentation layer.
+        </p>
+
+        <div class="cta-row" id="play">
+          <a class="button primary" href="build/ball-meister.html">Play the web build</a>
+          <a class="button secondary" href="Game%20portal/template/index.html">View the portal prototype</a>
+        </div>
+
+        <div class="meta-grid" aria-label="Quick facts">
+          <div class="meta">
+            <strong>GitHub Pages entry</strong>
+            <span>Serves this root page as the public landing page for the repo.</span>
+          </div>
+          <div class="meta">
+            <strong>Playable export</strong>
+            <span>The exported HTML game lives in <a href="build/ball-meister.html">build/ball-meister.html</a>.</span>
+          </div>
+          <div class="meta">
+            <strong>Source project</strong>
+            <span>The editable Godot project lives under <a href="dev/ball-meister/project.godot">dev/ball-meister</a>.</span>
+          </div>
+        </div>
+      </article>
+
+      <aside class="side-card">
+        <div>
+          <div class="panel-title">Repository map</div>
+          <div class="repo-map">
+            <div class="map-item">
+              <strong>Build</strong>
+              <p>Exported web release with the final playable game and generated runtime assets.</p>
+              <a href="build/ball-meister.html">Open build/ball-meister.html</a>
+            </div>
+            <div class="map-item">
+              <strong>Dev</strong>
+              <p>Godot source tree for scenes, scripts, resources, and the project configuration.</p>
+              <a href="dev/ball-meister/project.godot">Open dev/ball-meister/project.godot</a>
+            </div>
+            <div class="map-item">
+              <strong>Game Portal</strong>
+              <p>Legacy presentation layer and styling for the original portal concept.</p>
+              <a href="Game%20portal/template/index.html">Open Game portal/template/index.html</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" id="structure">
+      <article class="section-card span-7">
+        <h2>What lives where</h2>
+        <p>
+          The repository is split between the deployed web experience and the editable Godot project. That separation keeps
+          the public page lightweight while preserving the complete source tree for development and future exports.
+        </p>
+
+        <div class="cards">
+          <div class="mini-card">
+            <h3>build/</h3>
+            <p>Serves the web build, including the generated HTML shell, PCK, worklets, and engine runtime files.</p>
+          </div>
+          <div class="mini-card">
+            <h3>dev/ball-meister/</h3>
+            <p>Contains the Godot project, scenes, scripts, resources, and export presets used to produce the build.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Game portal/</h3>
+            <p>Holds the portal layout and styling that document the game and link players into the build.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="section-card span-5" id="source">
+        <h2>Source project notes</h2>
+        <p>
+          The editable project is a standard Godot workspace. If you want to inspect the game logic, start with the project
+          file and then follow the scene and script files referenced by the exported build.
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <p>Open <a href="dev/ball-meister/project.godot">project.godot</a> to load the Godot project.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <p>Inspect the scenes under <a href="dev/ball-meister/scenes/main.tscn">scenes/</a> and the scripts under <a href="dev/ball-meister/scripts/main.gd">scripts/</a>.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <p>Use the export settings in the Godot project to produce a new web build when the game changes.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section" id="notes">
+      <article class="section-card span-7">
+        <h2>Repository notes</h2>
+        <p>
+          This page is designed to feel like a proper project homepage rather than a placeholder. It documents the launch
+          points visitors actually need while keeping the layout clean enough to work well as a GitHub Pages index.
+        </p>
+      </article>
+
+      <article class="section-card span-5">
+        <h2>Quick links</h2>
+        <p>Jump directly to the key files most visitors will care about.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">A</div>
+            <p><a href="README.md">README.md</a> for the repository overview.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">B</div>
+            <p><a href="build/ball-meister.html">build/ball-meister.html</a> for the playable game.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">C</div>
+            <p><a href="dev/ball-meister/project.godot">dev/ball-meister/project.godot</a> for the source project.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>Vibe-Balling-Meister documentation homepage</span>
+      <span>Built for GitHub Pages with direct links into the game build and Godot source tree.</span>
+    </footer>
+  </main>
+</body>
+</html>
